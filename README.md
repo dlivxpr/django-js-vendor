@@ -72,12 +72,47 @@ python manage.py vendor add htmx.org
 python manage.py vendor add alpinejs 3.13.0
 ```
 
+### 移除依赖
+
+移除依赖及其相关文件，并更新配置。
+
+```bash
+python manage.py vendor remove htmx.org
+```
+
 ### 更新依赖
 
 更新依赖并刷新 lock 文件。
 
 ```bash
 python manage.py vendor update
+```
+
+## 模板标签 (Template Tags)
+
+Django JS Vendor 提供了一个便捷的模板标签，用于在 HTML 中自动引入所有已安装的依赖。
+
+### 引入所有资源
+
+在你的基础模板（如 `base.html`）中：
+
+```html
+{% load vendor_tags %}
+
+<head>
+    <!-- 自动生成 <script> 和 <link> 标签 -->
+    {% render_vendor_assets %}
+</head>
+```
+
+它会根据 `js-vendor.lock` 的内容，按照 `pyproject.toml` 中定义的顺序，自动生成对应的 HTML 标签。
+
+### 按需引入
+
+你也可以只引入特定的包：
+
+```html
+{% render_vendor_assets 'htmx' 'alpine' %}
 ```
 
 ## 开发指南

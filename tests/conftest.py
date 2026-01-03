@@ -17,6 +17,7 @@ def pytest_configure():
                 "django_js_vendor",
             ],
             SECRET_KEY="test",
+            STATIC_URL="/static/",
         )
         django.setup()
 
